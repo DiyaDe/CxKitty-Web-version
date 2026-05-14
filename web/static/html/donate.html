@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}打赏与反馈 - 超星学习通答题姬{% endblock %}
+
+{% block head_extra %}
+<link rel="stylesheet" href="/static/css/donate.css">
+{% endblock %}
+
+{% block content %}
+<section class="workspace-view">
+    <div class="workspace-grid donate-grid">
+        <div class="workspace-panel">
+            <div class="panel-header">
+                <div>
+                    <p class="panel-eyebrow">Support</p>
+                    <h3>{{ donate.title }}</h3>
+                    <p class="meta-text">{{ donate.description }}</p>
+                </div>
+            </div>
+            <div class="donate-cards">
+                <article class="donate-card">
+                    <h4>微信打赏</h4>
+                    {% if donate.wechat_qr %}
+                    <img class="donate-qr" src="{{ donate.wechat_qr }}" alt="微信打赏二维码">
+                    {% else %}
+                    <div class="donate-placeholder">未配置微信打赏二维码</div>
+                    {% endif %}
+                </article>
+                <article class="donate-card">
+                    <h4>支付宝打赏</h4>
+                    {% if donate.alipay_qr %}
+                    <img class="donate-qr" src="{{ donate.alipay_qr }}" alt="支付宝打赏二维码">
+                    {% else %}
+                    <div class="donate-placeholder">未配置支付宝打赏二维码</div>
+                    {% endif %}
+                </article>
+            </div>
+            {% if donate.donate_link %}
+            <a href="{{ donate.donate_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary donate-link">打开打赏链接</a>
+            {% endif %}
+        </div>
+
+        <div class="workspace-panel">
+            <div class="panel-header">
+                <div>
+                    <p class="panel-eyebrow">Feedback</p>
+                    <h3>邮箱反馈</h3>
+                    <p class="meta-text">提交后会自动附带你的账号信息、任务状态和日志文件，便于快速定位问题。</p>
+                </div>
+            </div>
+            <form id="feedback-form" class="feedback-form">
+                <label class="feedback-row">
+                    <span>反馈主题</span>
+                    <input id="feedback-subject" type="text" maxlength="120" placeholder="例如：任务停止后仍继续执行">
+                </label>
+                <label class="feedback-row">
+                    <span>联系方式</span>
+                    <input id="feedback-contact" type="text" maxlength="120" placeholder="邮箱 / QQ / 手机号（可选）">
+                </label>
+                <label class="feedback-row feedback-row-block">
+                    <span>详细描述</span>
+                    <textarea id="feedback-message" rows="8" minlength="5" placeholder="请描述你遇到的问题、复现步骤和期望结果"></textarea>
+                </label>
+                <div class="feedback-note">系统会自动附加当前登录用户信息与日志末尾内容（最多约 512KB）。</div>
+                <button id="btn-send-feedback" type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> 发送反馈
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/donate.js"></script>
+{% endblock %}

@@ -1,0 +1,50 @@
+.config-grid {
+  align-items: start;
+}
+
+.config-note {
+  font-size: 0.95rem;
+}
+
+.searchers-editor .searcher-card {
+  padding: 20px;
+}
+
+.searcher-card-header {
+  margin-bottom: 12px;
+}
+
+.searcher-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.searcher-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  font-size: 0.86rem;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.searcher-links a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(var(--accent-rgb), 0.3);
+  transform: translateY(-1px);
+}
+
+.searcher-fields {
+  margin-top: 14px;
+}
+
+.field-help {
+  margin-top: 4px;
+}

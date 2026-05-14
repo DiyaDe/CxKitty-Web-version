@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}任务进度 - 超星学习通答题姬{% endblock %}
+
+{% block head_extra %}
+<link rel="stylesheet" href="/static/css/tasks.css">
+{% endblock %}
+
+{% block content %}
+<section class="workspace-view">
+    <div class="workspace-grid task-grid">
+        <div class="workspace-panel">
+            <div class="panel-header">
+                <div>
+                    <p class="panel-eyebrow">Status</p>
+                    <h3>任务进度</h3>
+                </div>
+                <button id="btn-refresh-task-status" class="btn btn-secondary" type="button"><i class="fa-solid fa-rotate" aria-hidden="true"></i> 刷新状态</button>
+            </div>
+
+            <div id="task-info" class="summary-grid summary-grid-wide"></div>
+
+            <div class="progress-panel">
+                <div class="progress-header">
+                    <h4>执行进度</h4>
+                    <span id="task-progress-text" class="meta-text">0%</span>
+                </div>
+                <div class="progress-track">
+                    <div id="task-progress-bar" class="progress-bar"></div>
+                </div>
+                <div id="task-progress-meta" class="progress-meta"></div>
+            </div>
+
+            <div class="task-status-card">
+                <div class="status-pill" id="task-running-indicator">未开始</div>
+                <p id="task-status-text" class="meta-text">请先在课程列表中选择课程或考试。</p>
+            </div>
+            <div class="task-status-card task-help-card" role="note" aria-label="问题反馈提示">
+                <p class="meta-text">
+                    遇到问题可前往
+                    <a class="task-help-link" href="/donate">
+                        <i class="fa-solid fa-message" aria-hidden="true"></i> 打赏与反馈 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                    </a>
+                    提交反馈，并尽量提供：
+                </p>
+                <ul class="task-help-list">
+                    <li>复现步骤：先配置 → 选择课程 → 加入队列/开始任务。</li>
+                    <li>问题现象：卡在哪一步、提示/报错信息、发生时间、截图。</li>
+                    <li>相关日志：复制本页“执行日志”中对应时间附近的几行。</li>
+                </ul>
+                <div class="inline-actions task-help-actions">
+                    <a class="btn btn-secondary" href="/donate"><i class="fa-solid fa-message" aria-hidden="true"></i> 去反馈</a>
+                </div>
+            </div>
+
+            <div class="progress-panel">
+                <div class="progress-header">
+                    <h4>排队执行</h4>
+                    <span id="queue-status-text" class="meta-text">队列空闲</span>
+                </div>
+                <div id="queue-meta" class="progress-meta">待执行：0</div>
+            </div>
+
+            <div class="inline-actions">
+                <a href="/courses" class="btn btn-secondary">选择任务目标</a>
+                <a href="/settings" class="btn btn-secondary">前往配置页</a>
+            </div>
+
+            <div class="task-controls">
+                <button id="btn-start-task" class="btn btn-primary" type="button" aria-busy="false">
+                    <i class="fa-solid fa-play start-icon start-icon-idle" aria-hidden="true"></i>
+                    <i class="fa-solid fa-circle-notch fa-spin start-icon start-icon-pending" aria-hidden="true"></i>
+                    <span class="start-label start-label-idle">开始任务</span>
+                    <span class="start-label start-label-pending">启动中...</span>
+                </button>
+                <button id="btn-stop-task" class="btn btn-danger" type="button" disabled><i class="fa-solid fa-stop" aria-hidden="true"></i> 停止任务</button>
+                <button id="btn-clear-task-selection" class="btn btn-secondary" type="button"><i class="fa-solid fa-eraser" aria-hidden="true"></i> 清空当前选择</button>
+            </div>
+        </div>
+
+        <div class="workspace-panel">
+            <div class="panel-header">
+                <div>
+                    <p class="panel-eyebrow">Logs</p>
+                    <h3>执行日志</h3>
+                    <p class="meta-text log-hint">日志会实时刷新并自动滚动到最新位置。</p>
+                </div>
+            </div>
+            <div id="task-log" class="task-log"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+<script src="/static/js/tasks.js"></script>
+{% endblock %}

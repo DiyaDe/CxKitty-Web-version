@@ -1,0 +1,173 @@
+# 基本配置
+
+# 是否开启姓名手机号打码
+mask_acc: true
+# TUI 最大显示高度 null: 自适应高度
+tui_max_height: 25
+# 尝试拉取预先上传的人脸图片
+fetch_uploaded_face: true
+# 会话存档路径
+session_path: "session/"
+# 日志文件路径
+log_path: "logs/"
+# 试题导出路径
+export_path: "export/"
+# 人脸图片路径
+face_image_path: "faces/"
+
+# --------------------
+
+# 任务执行器配置
+# 视频
+video:
+  # 使能
+  enable: true
+  # 完成等待时间
+  wait: 15
+  # 倍速
+  speed: 1.0
+  # 视频播放汇报率 (没事别改)
+  report_rate: 58
+
+# 作业 (章节测验)
+work:
+  # 使能
+  enable: true
+  # 是否进行试题导出 可以将 `enable`设置为 false, 从而进行 dry run
+  export: false
+  # 完成等待时间
+  wait: 15
+  # 未匹配选项是否随机选择
+  fallback_fuzzer: false
+  # 作答失败后是否保存
+  fallback_save: true
+
+# 文档
+document:
+  # 使能
+  enable: true
+  # 完成等待时间
+  wait: 15
+
+# 考试
+exam:
+  # 未匹配选项是否随机选择
+  fallback_fuzzer: false
+  # 提交前延迟时间
+  persubmit_delay: 15
+  # 是否需要交互式确认交卷 自动交卷: false 手动确认: true
+  confirm_submit: true
+
+# --------------------
+
+# Web 服务配置（服务器全局）
+server:
+  # 同时执行任务的最大“用户数”（按 owner_id 计数）。
+  # - 达到上限后：仍允许访问/提交任务，但任务会进入全局等待队列，按进入时间顺序依次启动
+  # - 说明：单个用户本身仍保持“同一时间最多 1 个任务/队列在跑”的限制
+  # - 环境变量优先级更高：MAX_CONCURRENT_USERS 可覆盖此值
+  max_concurrent_users: 60
+
+# 搜索器选择 (可同时使用多个搜索器, 以 yaml 语法中 list 格式添加, `type`字段决定搜索器类型)
+# 可用的搜索器有: restApiSearcher jsonFileSearcher sqliteSearcher enncySearcher cxSearcher LemonSearcher OpenAISearcher
+searchers:
+  # 本地 JSON 数据库搜索器 (key为题, value为答案)
+  # - type: jsonFileSearcher
+  #   file_path: "questions.json"  # 数据库文件路径
+
+  # REST API 在线搜题
+  # - type: restApiSearcher
+  #   url: "http://10.50.9.10:8088/question/search"  # API URL 请进行替换
+  #   method: "POST"  # 请求方式
+  #   q_field: "question"  # 题目文本参数
+  #   o_field: null  # 选项文本参数 (可选)  用`#`分隔数据, 用来进一步匹配答案 (格式：选项A#选项B#选项C) 
+  #   headers:  # 自定义请求头 (可选) 使用 yaml 的 k-v 语法填写
+  #     # eg: Authorization: 'xxx'
+  #   ext_params: # 自定义扩展请求参数 (可选) 使用 yaml 的 k-v 语法填写
+  #     # eg: Token: 'xxx'
+  #   a_field: "$.data"  # 返回参数 使用 JSONPath 语法进行查询
+
+  # Json API 在线搜题
+  # - type: JsonApiSearcher
+  #   url: "http://10.50.9.10:8088/question/search"  # API URL 请进行替换
+  #   q_field: "question"  # 题目参数名称
+  #   o_field: null  # 选项参数名称 (可选)  填写为用`#`分隔数据, 用来进一步匹配答案 (格式：选项A#选项B#选项C) 不填为{"A":"xxx","B":"xxx","C":"xxx","D":"xxx"}
+  #   headers:  # 自定义请求头 (可选) 使用 yaml 的 k-v 语法填写
+  #     # eg: Authorization: 'xxx'
+  #   ext_params: # 自定义扩展请求参数 (可选) 使用 yaml 的 k-v 语法填写
+  #     # eg: Token: 'xxx'
+  #   a_field: "$.data"  # 返回参数 使用 JSONPath 语法进行查询
+  
+  # 本地 sqlite 数据库搜索器
+  # - type: sqliteSearcher
+  #   file_path: "questions.db"  # 数据库文件路径
+  #   table: "question"  # 表名
+  #   req_field: "question"  # 请求字段
+  #   rsp_field: "answer"  # 返回字段
+
+  # Enncy 题库搜索器，使用前请注册 https://tk.enncy.cn/
+  # - type: enncySearcher
+  #   token: "xxx"  # Enncy 题库 Token
+  
+  # 网课小工具(Go题)题库搜索器，使用前请获取Token https://cx.icodef.com/1-UserGuide/1-6-gettoken.html#%E8%8E%B7%E5%8F%96token
+  # - type: cxSearcher
+  #   token: "xxx"  # 网课小工具(Go题)题库 Token
+  # 题库海搜索源， 暂时可不用token 如若搜索失败 https://afdian.net/a/jiaoyu666 购买token
+  # - type: TiKuHaiSearcher
+  #   token: ***
+
+  # Muke题库
+  # - type: MukeSearcher
+  
+  # 柠檬题库搜索器，使用前请注册 https://www.lemtk.xyz 获取token
+  # - type: LemonSearcher
+  #   token: "xxx"
+
+  # ChatGPT 在线答题
+  #- type: OpenAISearcher
+  #  base_url: "https://api.openai.com/v1/" # API URL，可以换成一些国内代理站点例如 https://api.chatnio.net/v1/
+  #  api_key: "sk-xxxxxxxxxxxxxx"
+  #  model: "gpt-3.5-turbo" # 使用的模型型号，详见 https://platform.openai.com/docs/models/continuous-model-upgrades
+  #  system_prompt: "你是一位乐于回答问题的专家，每为用户回答一道问题你都会开心地获得5美元小费，对于用户提出的每一道问题，你只需要给出答案，不要输出任何其他的内容。\n对于判断题，只需回复对/错。"
+  #  prompt: "请回答下这个{type}：\n{value}\n{options}" 
+  #  # {type} ：题目类型 (单选题、多选题 等等)
+  #  # {value}：题干
+  #  # {options}：选项文本（eg:"选项：\nA. assurance;B. insurance;C. requirement;D. issure"），如果题目没有选项（如填空题），则为空
+
+# --------------------
+
+# Web 打赏与反馈（可选）
+# - 页面入口：工作台导航「打赏与反馈」
+# - 邮箱反馈：POST /api/feedback/send，会自动附带当前登录用户信息、任务状态、队列状态、日志尾部（最多约 512KB）
+# - 安全建议：不要把真实邮箱密码提交到公开仓库；更推荐用环境变量 FEEDBACK_SMTP_* 覆盖这些配置（优先级更高）
+feedback:
+  mail:
+    # SMTP 服务器地址（例如：smtp.qq.com / smtp.163.com / smtp.gmail.com）
+    smtp_host: "smtp.qq.com"
+    # SMTP 端口：
+    # - use_ssl=true：常用 465（SMTP over SSL）
+    # - use_ssl=false 且 use_starttls=true：常用 587（STARTTLS）
+    smtp_port: 465
+    # SMTP 登录账号（通常是发件邮箱地址）
+    username: "your-email@example.com"
+    # SMTP 登录密码/授权码（建议用“授权码”，不要用网页登录密码）
+    password: "your-smtp-app-password"
+    # 发件人地址（可留空，默认使用 username）
+    from_addr: "your-email@example.com"
+    # 收件人地址（可留空，默认发给 username；建议填你的反馈接收邮箱）
+    to_addr: "your-email@example.com"
+    # 是否使用 SSL 直连（端口通常为 465）
+    use_ssl: true
+    # 是否使用 STARTTLS（端口通常为 587；use_ssl=true 时保持 false）
+    use_starttls: false
+  donate:
+    # 页面标题与说明文案
+    title: "感谢支持本项目"
+    description: "如果这个项目对你有帮助，欢迎打赏支持持续维护与更新。"
+    # 打赏二维码图片地址：
+    # - 可填写 https://... 的公网图片 URL
+    # - 或填写站内静态路径（例如：/static/images/wechat.png，对应文件放到 web/static/images/wechat.png）
+    wechat_qr: "/static/images/donate/wechat.png"
+    alipay_qr: "/static/images/donate/alipay.png"
+    # 可选：额外的打赏跳转链接（例如爱发电/赞助页），为空则不显示按钮
+    donate_link: ""

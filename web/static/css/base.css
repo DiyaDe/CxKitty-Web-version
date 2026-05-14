@@ -1,0 +1,54 @@
+:root {
+  --page-panel-gap: 22px;
+}
+
+.dashboard-nav {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 10px 10px;
+}
+
+.nav-chip.active {
+  box-shadow: 0 18px 44px rgba(var(--accent-rgb), 0.18);
+}
+
+.dashboard-shell {
+  position: relative;
+}
+
+.workspace-panel {
+  position: relative;
+}
+
+.workspace-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at top left, rgba(255, 42, 95, 0.18), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(99, 102, 241, 0.14), transparent 60%);
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.workspace-panel > * {
+  position: relative;
+}
+
+.dashboard-nav {
+  position: sticky;
+  top: 14px;
+  z-index: 2;
+  backdrop-filter: blur(12px);
+}
+
+.nav-chip {
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 980px) {
+  .dashboard-nav {
+    position: static;
+  }
+}

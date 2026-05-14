@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <title>{% block title %}超星学习通答题姬{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/app.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+    {% block head_extra %}{% endblock %}
+</head>
+<body class="app-page">
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> 超星学习通答题姬</h1>
+            <p class="subtitle">让学习更高效，让技术改变生活</p>
+        </header>
+
+        <main>
+            <section id="app-shell" class="dashboard-shell">
+                <div class="dashboard-topbar">
+                    <div>
+                        <p class="dashboard-eyebrow">超星学习通答题姬 Web Workspace</p>
+                        <h2 class="dashboard-title">学习任务控制台</h2>
+                    </div>
+                    <div class="dashboard-user">
+                        <div id="account-info" class="account-mini"></div>
+                        <button id="btn-logout" class="btn btn-secondary">退出登录</button>
+                    </div>
+                </div>
+
+                <nav class="dashboard-nav" aria-label="主导航">
+                    <a class="nav-chip {% if active_page == 'courses' %}active{% endif %}" href="/courses" {% if active_page == 'courses' %}aria-current="page"{% endif %}>课程列表</a>
+                    <a class="nav-chip {% if active_page == 'settings' %}active{% endif %}" href="/settings" {% if active_page == 'settings' %}aria-current="page"{% endif %}>配置页面</a>
+                    <a class="nav-chip {% if active_page == 'tasks' %}active{% endif %}" href="/tasks" {% if active_page == 'tasks' %}aria-current="page"{% endif %}>任务进度</a>
+                    <a class="nav-chip {% if active_page == 'donate' %}active{% endif %}" href="/donate" {% if active_page == 'donate' %}aria-current="page"{% endif %}>打赏与反馈</a>
+                </nav>
+
+                {% block content %}{% endblock %}
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2026 Web Version | 让技术为学习赋能</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/common.js"></script>
+    <script src="/static/js/workspace.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

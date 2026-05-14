@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}课程列表 - 超星学习通答题姬{% endblock %}
+
+{% block head_extra %}
+<link rel="stylesheet" href="/static/css/courses.css">
+{% endblock %}
+
+{% block content %}
+<section class="workspace-view">
+    <div class="workspace-grid">
+        <div class="workspace-panel">
+            <div class="panel-header">
+                <div>
+                    <p class="panel-eyebrow">Courses</p>
+                    <h3>我的课程</h3>
+                </div>
+                <button id="btn-refresh-courses" class="btn btn-primary">刷新课程</button>
+            </div>
+            <div class="course-detail-banner course-help-banner" role="note" aria-label="使用步骤提示">
+                <div class="course-detail-title">使用步骤</div>
+                <div class="course-detail-subtitle">
+                    <ol class="course-help-steps">
+                        <li>
+                            先前往
+                            <a class="course-help-link" href="/settings">
+                                <i class="fa-solid fa-gear" aria-hidden="true"></i> 配置页 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                            </a>
+                            保存配置（启用作业时请至少选择一个搜索器）。
+                        </li>
+                        <li>回到本页，找到要刷的课程，点击“加入队列”。</li>
+                        <li>点击“开始任务”进入任务进度页，再点击“开始任务”即可开始刷课。</li>
+                        <li>
+                            任务进度页可查看进度与日志；遇到问题可到
+                            <a class="course-help-link" href="/donate">
+                                <i class="fa-solid fa-message" aria-hidden="true"></i> 打赏与反馈 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                            </a>
+                            提交复现步骤与现象，方便定位。
+                        </li>
+                    </ol>
+                </div>
+                <div class="inline-actions course-help-actions">
+                    <a class="btn btn-secondary" href="/settings">前往配置页</a>
+                    <a class="btn btn-secondary" href="/tasks">任务进度</a>
+                    <a class="btn btn-secondary" href="/donate">打赏与反馈</a>
+                </div>
+            </div>
+            <div class="course-toolbar">
+                <div class="toolbar-left">
+                    <div class="course-filters">
+                        <select id="course-filter-state" class="course-filter-select" aria-label="筛选课程状态">
+                            <option value="">全部状态</option>
+                        </select>
+                        <select id="course-filter-teacher" class="course-filter-select" aria-label="筛选授课教师">
+                            <option value="">全部教师</option>
+                        </select>
+                        <button id="btn-clear-course-filters" class="btn btn-secondary" type="button">清空筛选</button>
+                    </div>
+                </div>
+                <div class="toolbar-right">
+                    <div class="course-stats">
+                        <span id="courses-stats" class="meta-text">共 0 门，显示 0 门</span>
+                    </div>
+                </div>
+            </div>
+            <div id="courses-list" class="courses-list"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/courses.js"></script>
+{% endblock %}

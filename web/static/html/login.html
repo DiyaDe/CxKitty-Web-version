@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <title>超星学习通答题姬 - 登录</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/app.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/login.css">
+</head>
+<body class="login-page">
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> 超星学习通答题姬</h1>
+            <p class="subtitle">让学习更高效，让技术改变生活</p>
+        </header>
+
+        <main>
+            <div class="login-container" id="login-container">
+                <div class="form-container qr-login-container">
+                    <div class="cinematic-form">
+                        <h1 class="form-title">扫码登录</h1>
+                        <div class="qr-wrapper">
+                            <div class="qr-frame">
+                                <div id="qrcode"></div>
+                            </div>
+                            <p id="qr-status" class="cinematic-status">正在加载二维码...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container password-login-container">
+                    <div class="cinematic-form">
+                        <h1 class="form-title">账号登录</h1>
+                        <div class="cinematic-input">
+                            <label class="sr-only" for="phone">手机号</label>
+                            <input type="text" id="phone" placeholder="手机号" autocomplete="off">
+                            <span class="input-highlight"></span>
+                        </div>
+                        <div class="cinematic-input">
+                            <label class="sr-only" for="password">密码</label>
+                            <input type="password" id="password" placeholder="密码">
+                            <span class="input-highlight"></span>
+                        </div>
+                        <button id="btn-login" class="btn-cinematic">登 录</button>
+                    </div>
+                </div>
+
+                <div class="overlay-container">
+                    <div class="overlay">
+                        <div class="overlay-panel overlay-left">
+                            <h1 class="overlay-title">欢迎回来!</h1>
+                            <p class="overlay-desc">更喜欢传统的登录方式？点击下方按钮切换到账号登录</p>
+                            <button class="btn-ghost" id="to-password">账号登录</button>
+                        </div>
+                        <div class="overlay-panel overlay-right">
+                            <h1 class="overlay-title">你好，朋友!</h1>
+                            <p class="overlay-desc">想要更快捷的登录体验？点击下方按钮切换到扫码登录</p>
+                            <button class="btn-ghost" id="to-qr">扫码登录</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2026 超星学习通答题姬 Web | 让技术为学习赋能</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/common.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script src="/static/js/login.js"></script>
+</body>
+</html>

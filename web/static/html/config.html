@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}配置页面 - 超星学习通答题姬{% endblock %}
+
+{% block head_extra %}
+<link rel="stylesheet" href="/static/css/config.css">
+{% endblock %}
+
+{% block content %}
+<section class="workspace-view">
+    <div class="workspace-panel">
+        <div class="panel-header">
+            <div>
+                <p class="panel-eyebrow">Config</p>
+                <h3>用户独立配置</h3>
+            </div>
+            <div class="inline-actions">
+                <button id="btn-reload-config" class="btn btn-secondary">重新读取</button>
+                <button id="btn-save-config" class="btn btn-primary">保存配置</button>
+            </div>
+        </div>
+
+        <div class="config-grid">
+            <div class="config-card">
+                <h4>视频任务</h4>
+                <label class="form-row toggle-row"><span>启用视频</span><input id="cfg-video-enable" type="checkbox"></label>
+                <label class="form-row"><span>等待时间(秒)</span><input id="cfg-video-wait" type="number" min="0"></label>
+                <label class="form-row"><span>播放倍速</span><input id="cfg-video-speed" type="number" min="0.1" step="0.1"></label>
+                <label class="form-row"><span>汇报率</span><input id="cfg-video-report-rate" type="number" min="1"></label>
+            </div>
+
+            <div class="config-card">
+                <h4>章节测验</h4>
+                <label class="form-row toggle-row"><span>启用作业</span><input id="cfg-work-enable" type="checkbox"></label>
+                <label class="form-row toggle-row"><span>仅导出题目</span><input id="cfg-work-export" type="checkbox"></label>
+                <label class="form-row"><span>等待时间(秒)</span><input id="cfg-work-wait" type="number" min="0"></label>
+                <label class="form-row toggle-row"><span>答案缺失随机选</span><input id="cfg-work-fallback-fuzzer" type="checkbox"></label>
+                <label class="form-row toggle-row"><span>失败时保存</span><input id="cfg-work-fallback-save" type="checkbox"></label>
+            </div>
+
+            <div class="config-card">
+                <h4>文档任务</h4>
+                <label class="form-row toggle-row"><span>启用文档</span><input id="cfg-document-enable" type="checkbox"></label>
+                <label class="form-row"><span>等待时间(秒)</span><input id="cfg-document-wait" type="number" min="0"></label>
+            </div>
+
+            <div class="config-card full-span">
+                <h4>搜索器配置</h4>
+                <p class="meta-text searcher-tip">仅保留常用题库来源：Enncy / 网课小工具(Go题) / 题库海 / Muke / 柠檬题库 / OpenAI。勾选启用后按说明填写 Token 或 API 配置。</p>
+                <div id="searchers-editor" class="searchers-editor"></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/config-page.js"></script>
+{% endblock %}

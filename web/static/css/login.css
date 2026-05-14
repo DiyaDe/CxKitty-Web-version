@@ -1,0 +1,28 @@
+body.login-page {
+    justify-content: center;
+}
+
+body.login-page header {
+    max-width: 768px;
+}
+
+body.login-page .login-container {
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.52), 0 0 0 1px rgba(var(--accent-2-rgb), 0.08), 0 0 70px rgba(var(--accent-rgb), 0.12);
+}
+
+body.login-page .overlay {
+    background-size: 220% 220%;
+    animation: loginOverlayDrift 7s ease-in-out infinite;
+}
+
+@keyframes loginOverlayDrift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.login-page .overlay {
+        animation: none !important;
+    }
+}
